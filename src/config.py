@@ -1,9 +1,5 @@
-
-
-class Params():
-
+class Params:
     def __init__(self, config_file_path):
-
         import json
 
         # Load the configuration file using the provided path
@@ -11,29 +7,33 @@ class Params():
             config = json.load(f)
             self.time_serie_percentage_length = config["time_serie_percentage_length"]
             self.batch_size = config["batch_size"]
-            self.init_node = config['init_node']
-            self.n_neighbours = config['n_neighbours']
-            self.smooth = config['smooth']
-            self.center_and_reduce = config['center_and_reduce']
-            self.normalize = config['normalize']
-            self.sort_by_mean = config['sort_by_mean']
-            self.nodes_to_filter = config['nodes_to_filter']  
-            self.number_of_nodes =  config['number_of_nodes'] 
-            self.window_size = config['window_size']
-            self.prediction_horizon = config['prediction_horizon']
-            self.stride = config['stride']
-            self.communication_rounds = config['communication_rounds']
-            self.num_epochs_local_no_federation = config['num_epochs_local_no_federation']
-            self.num_epochs_local_federation = config['num_epochs_local_federation']
-            self.epoch_local_retrain_after_federation = config["epoch_local_retrain_after_federation"]
-            self.learning_rate = config['learning_rate']
+            self.init_node = config["init_node"]
+            self.n_neighbours = config["n_neighbours"]
+            self.smooth = config["smooth"]
+            self.center_and_reduce = config["center_and_reduce"]
+            self.normalize = config["normalize"]
+            self.sort_by_mean = config["sort_by_mean"]
+            self.nodes_to_filter = config["nodes_to_filter"]
+            self.number_of_nodes = config["number_of_nodes"]
+            self.window_size = config["window_size"]
+            self.prediction_horizon = config["prediction_horizon"]
+            self.stride = config["stride"]
+            self.communication_rounds = config["communication_rounds"]
+            self.num_epochs_local_no_federation = config[
+                "num_epochs_local_no_federation"
+            ]
+            self.num_epochs_local_federation = config["num_epochs_local_federation"]
+            self.epoch_local_retrain_after_federation = config[
+                "epoch_local_retrain_after_federation"
+            ]
+            self.learning_rate = config["learning_rate"]
             self.model = config["model"]
             self.save_model_path = config["save_model_path"]
-            
 
 
-def convert_PeMS_to_csv(flow_file="./../data/PEMS04/PEMS04.npz", csv_file="./../data/PEMS04/distance.csv"):
-
+def convert_PeMS_to_csv(
+    flow_file="./../data/PEMS04/PEMS04.npz", csv_file="./../data/PEMS04/distance.csv"
+):
     """
     Small utils function to convert a Npz file for the PeMS data into a csv
     """
@@ -43,7 +43,7 @@ def convert_PeMS_to_csv(flow_file="./../data/PEMS04/PEMS04.npz", csv_file="./../
 
     data = np.load(flow_file)
 
-    array_flow = data['data']
+    array_flow = data["data"]
     array_flow = array_flow[:, :, 0]
 
     flow_dict = {k: array_flow[:, k] for k in range(array_flow.shape[1])}

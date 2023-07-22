@@ -2,16 +2,17 @@
 # Libraries
 ###############################################################################
 import streamlit as st
+
 st.set_page_config(layout="wide")
-c1_logo, _, _, c4_logo = st.columns((1,1,1,1))
+c1_logo, _, _, c4_logo = st.columns((1, 1, 1, 1))
 with c1_logo:
-    st.image("data/Bloc_Marque_ronds.jpg", width=200)
+    st.image("../data/Bloc_Marque_ronds.jpg", width=200)
 with c4_logo:
-    st.image("data/cropped-vilagil.png", width=200)
+    st.image("../data/cropped-vilagil.png", width=200)
 st.title("Welcome to the demonstrator")
 st.header("Projet-Vilagil")
 st.markdown(
-        """
+    """
         **👈 Select a view on the left** to see our results
         of what results we have!
 
@@ -21,7 +22,8 @@ st.markdown(
         """
 )
 
-st.markdown("""
+st.markdown(
+    """
 ## Application of Federated Learning to urban mobility data.
 ### Associate to Toulouse city Vilagil Project.
 
@@ -45,16 +47,20 @@ A model training is composed of several "rounds" (the number of times the initia
 
 At the beginning, the model is sent to the selected clients with the initial parameters (the weights of the neural network) which are set either by the server according to a strategy to be defined, or by a randomly chosen client.
 Each client then performs a local calculation based on the global state of the shared model and its local dataset. The gradients are calculated and sent to the server in order to perform an aggregation and update it as the new global state and the process repeats for all rounds.
-""")
-st.image("data/Fed1.png")
-st.markdown("""
+"""
+)
+st.image("../data/Fed1.png")
+st.markdown(
+    """
 *FIG 1 : An illustration of Federated Learning Paradigm*
 
 Communications between the server and the various clients must be secure [7], efficient, scalable and fault-tolerant, using the SSL (Secure Sockets Layer) protocol for encrypted exchanges between machines. Thus, the risks of eavesdropping or interception are reduced and the confidentiality and protection of user data is guaranteed.
-""")
-st.image("data/Fed2.png")
+"""
+)
+st.image("../data/Fed2.png")
 
-st.markdown("""
+st.markdown(
+    """
 *FIG 2 : A Federated Learning Architecture*
 
 Unlike learning in traditional machine learning models, where train, test, and validation sets are obtained via explicit splits of the data, they are obtained in the case of federated learning by splitting the client devices into three distinct populations. The probability of reusing clients in the test, train or validation sets is very low in a sufficiently large client population.
@@ -64,11 +70,14 @@ Two approaches can be used for training a federated model  :
 The same client participates in the train and the test, the local dataset will simply be split into two parts: some clients are used for the train, others for the test.
 
 In the second approach, each client participating in the test, returns to the server a set of metrics according to its local dataset and the last version of the model received after the training.
-""")
+"""
+)
 
-st.markdown("""
+st.markdown(
+    """
 @*CREDITS* :
 -
 * COGONI Guillaume
 * BEN ALI Michael Eddy
-""")
+"""
+)

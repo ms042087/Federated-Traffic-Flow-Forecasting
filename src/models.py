@@ -10,10 +10,8 @@ The TGCN model is based on :
 """
 
 
-
 import torch
 from src.utils_graph import compute_laplacian_with_self_loop
-
 
 
 class LSTMModel(torch.nn.Module):
@@ -32,7 +30,10 @@ class LSTMModel(torch.nn.Module):
     num_layer : int = 6
         number of layer.
     """
-    def __init__(self, input_size : int, hidden_size : int, output_size : int, num_layers : int=6):
+
+    def __init__(
+        self, input_size: int, hidden_size: int, output_size: int, num_layers: int = 6
+    ):
         super().__init__()
         self.lstm = torch.nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
         self.fc = torch.nn.Linear(hidden_size, output_size)
@@ -43,9 +44,8 @@ class LSTMModel(torch.nn.Module):
         return out
 
 
-
 class GRUModel(torch.nn.Module):
-    
+
     """
     Class to define GRU model here with 6 GRU layers and 1 fully connected layer by default
     Parameters
@@ -57,15 +57,17 @@ class GRUModel(torch.nn.Module):
     num_layer : int = 6
         number of layer.
     """
-    
-    def __init__(self, input_size : int,  hidden_size : int, output_size : int,  num_layers : int=6):
+
+    def __init__(
+        self, input_size: int, hidden_size: int, output_size: int, num_layers: int = 6
+    ):
         super(GRUModel, self).__init__()
         self.hidden_size = hidden_size
         self.num_layers = num_layers
 
         self.gru = torch.nn.GRU(input_size, hidden_size, num_layers, batch_first=True)
         self.fc = torch.nn.Linear(hidden_size, output_size)
-        
+
     def forward(self, x):
         out, _ = self.gru(x)
         out = self.fc(out[:, -1, :])
@@ -73,7 +75,7 @@ class GRUModel(torch.nn.Module):
 
 
 class TGCNGraphConvolution(torch.nn.Module):
-    
+
     """
     Class to define TGCNGraphConvolution that is use by class TGCNCell
     Parameters
@@ -151,7 +153,7 @@ class TGCNGraphConvolution(torch.nn.Module):
 
 
 class TGCNCell(torch.nn.Module):
-    
+
     """
     Class to define TGCNCell that is use by class TGCN
     Parameters
@@ -165,7 +167,7 @@ class TGCNCell(torch.nn.Module):
         number of layer.
     """
 
-    def __init__(self, adj, input_dim: int, hidden_dim: int, num_layer : int = 1):
+    def __init__(self, adj, input_dim: int, hidden_dim: int, num_layer: int = 1):
         super(TGCNCell, self).__init__()
         self._input_dim = input_dim
         self._hidden_dim = hidden_dim
@@ -179,7 +181,6 @@ class TGCNCell(torch.nn.Module):
         )
 
     def forward(self, inputs, hidden_state):
-
         for _ in range(self._num_layer):
             # [r, u] = sigmoid(A[x, h]W + b)
             # [r, u] (batch_size, num_nodes * (2 * num_gru_units))
@@ -198,14 +199,15 @@ class TGCNCell(torch.nn.Module):
 
     @property
     def hyperparameters(self):
-        return {"input_dim": self._input_dim,
-                "hidden_dim": self._hidden_dim,
-                "num_layer": self._num_layer
+        return {
+            "input_dim": self._input_dim,
+            "hidden_dim": self._hidden_dim,
+            "num_layer": self._num_layer,
         }
 
 
 class TGCN(torch.nn.Module):
-    
+
     """
     Class to define TGCN
     Parameters
@@ -218,15 +220,23 @@ class TGCN(torch.nn.Module):
     num_layer : int = 1
         number of layer.
     """
-    
-    def __init__(self, adjacency_matrix, hidden_dim: int=64, output_size: int=1, num_layer : int= 1):
+
+    def __init__(
+        self,
+        adjacency_matrix,
+        hidden_dim: int = 64,
+        output_size: int = 1,
+        num_layer: int = 1,
+    ):
         super(TGCN, self).__init__()
         self._input_dim = adjacency_matrix.shape[0]
         self._hidden_dim = hidden_dim
         self._output_size = output_size
         self._num_layer = num_layer
         self.register_buffer("adj", torch.FloatTensor(adjacency_matrix))
-        self.tgcn_cell = TGCNCell(self.adj, self._input_dim, self._hidden_dim, self._num_layer)
+        self.tgcn_cell = TGCNCell(
+            self.adj, self._input_dim, self._hidden_dim, self._num_layer
+        )
         self.fc = torch.nn.Linear(hidden_dim, 1)
 
     def forward(self, inputs):
@@ -248,12 +258,9 @@ class TGCN(torch.nn.Module):
 
     @property
     def hyperparameters(self):
-        return {"input_dim": self._input_dim,
-                "hidden_dim": self._hidden_dim,
-                "output_size": self._output_size,
-                "num_layer": self._num_layer
+        return {
+            "input_dim": self._input_dim,
+            "hidden_dim": self._hidden_dim,
+            "output_size": self._output_size,
+            "num_layer": self._num_layer,
         }
-
-
-
-        

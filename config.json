@@ -1,27 +1,22 @@
 {
-    "time_serie_percentage_length":0.25,
-    "batch_size": 32,
-    "init_node": 0,
-    "n_neighbours": 99,
-    "smooth": true,
-    "center_and_reduce": true,
-    "normalize": false,
-    "sort_by_mean": false,
-    "nodes_to_filter": [118, 168, 261],
-    "number_of_nodes": 3,
-    "window_size": 84,
-    "prediction_horizon": 12,
-    "stride" : 1,
-    "communication_rounds" : 100,
-    "num_epochs_local_no_federation": 100,
-    "num_epochs_local_federation": 10,
-    "epoch_local_retrain_after_federation": 100,
-    "learning_rate": 0.001,
-    "model": "LSTMModel",
-<<<<<<< HEAD
-    "save_model_path": "/LSTMModel/"
-=======
-    "save_model_path": "/test/"
->>>>>>> main
+  "time_serie_percentage_length": 0.25,
+  "batch_size": 32,
+  "init_node": 0,
+  "n_neighbours": 99,
+  "smooth": true,
+  "center_and_reduce": true,
+  "normalize": false,
+  "sort_by_mean": false,
+  "nodes_to_filter": [118, 168, 261],
+  "number_of_nodes": 3,
+  "window_size": 84,
+  "prediction_horizon": 12,
+  "stride": 1,
+  "communication_rounds": 100,
+  "num_epochs_local_no_federation": 100,
+  "num_epochs_local_federation": 10,
+  "epoch_local_retrain_after_federation": 100,
+  "learning_rate": 0.001,
+  "model": "LSTMModel",
+  "save_model_path": "/test/"
 }
-
